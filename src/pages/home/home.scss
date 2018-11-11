@@ -1,0 +1,18 @@
+@import '../../theme/variables.scss';
+
+page-home {
+  #carMap {
+    height: 100%
+  }
+  .toolbar-background-md {
+    background-color: $color-primary;
+  }
+  .toolbar-title-md {
+    color: $color-white;
+    text-align: center;
+    font-family: 'Lobster', cursive;
+  }
+  ion-icon {
+    color: $color-white;
+  }
+}

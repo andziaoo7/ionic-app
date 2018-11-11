@@ -1,0 +1,39 @@
+@import '../../theme/variables.scss';
+
+page-filter-modal {
+  ion-header .toolbar-background-md {
+    background-color: $color-light;
+  }
+  .toolbar-title-md, ion-icon {
+    color: $color-white;
+  }
+  .center-text {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .card-wrapper {
+    border-top: 1px solid $color-border;
+    &:last-child {
+      border-bottom: 1px solid $color-border;
+    }
+    .checkbox-item .item-inner {
+      border-bottom: none;
+    }
+    ion-select {
+      max-width: 100%;
+      .select-text {
+        min-width: 268px;
+      }
+    }
+  }
+  .toolbar-background-md {
+    background-color: $color-white;
+    border: none;
+  }
+
+  .footer-button {
+    margin-bottom: 20px;
+    background-color: $color-primary;
+  }
+}

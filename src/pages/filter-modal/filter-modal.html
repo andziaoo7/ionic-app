@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Filtering</ion-title>
+    <ion-buttons left>
+      <button ion-button
+              (click)="closeFilterModel()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p class="center-text">Please select objects you would like to see on map and press <strong>Filter map</strong> button.</p>
+  <ion-list>
+    <ion-card-content *ngFor="let filter of filters; let i = index"
+                      class="card-wrapper">
+      <ion-item class="checkbox-item">
+        <ion-label> {{filter.name}}</ion-label>
+        <ion-checkbox item-right
+                      [(ngModel)]="filter.checked"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-select (ngModel)="option"
+                    name="select-{{i}}"
+                    >
+          <ion-option *ngFor="let option of filter.data"
+                      [value]="option.id"
+                      (ionSelect)="onSelectedOption(filter, option)">{{option.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-list>
+</ion-content>
+
+<ion-footer align="center"
+            no-border>
+  <ion-toolbar position="bottom">
+      <button ion-button
+              round
+              class="footer-button"
+              (click)="onMapFilter()">Filter map</button>
+    </ion-toolbar>
+</ion-footer>
+
+<!-- checkbox (area, parking, vehicle, POI - to show); select and card (vehicles, POI - different marker for them) -->
+<!-- filter button on bottom -->
+<!-- sprawdzić czy reactive forms zadziała https://www.joshmorony.com/advanced-forms-validation-in-ionic-2/ -->
+<!-- https://www.joshmorony.com/advanced-forms-validation-in-ionic-2/ -->

@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Car App
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button
+              icon-only
+              class="filter-button"
+              (click)="openFilterModal()">
+        <ion-icon name="options"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div #carMap
+       id="carMap"></div>
+</ion-content>
