@@ -16,11 +16,8 @@ export class FilterModalService {
     return this.http.get<any>(environment.apiUrl + 'map/filters').pipe(
       tap((data: IFilterResponse) => {
         const allowedTypes: FilterTypes[] = [
-          this.filterType.POI_CATEGORY,
           this.filterType.VEHICLE_MODEL,
-          this.filterType.VEHICLE_STATUS,
           this.filterType.VEHICLE_TYPE,
-          this.filterType.ZONE_AREA
         ];
         
         // extract from current filters only the needed ones
@@ -38,11 +35,10 @@ export class FilterModalService {
 
   private createArray(filters: Object): IFilter[] {
     const filtersArray: Array<Object> = Object.keys(filters).map(i => filters[i]);
-    const poiCategory: IFilterTypeData[] = this.createFiltersDataArray(filtersArray[0]);
-    const vehicleModel: IFilterTypeData[] = this.createFiltersDataArray(filtersArray[1]);
-    const vehicleType: IFilterTypeData[] = this.createFiltersDataArray(filtersArray[3]);
+    const vehicleModel: IFilterTypeData[] = this.createFiltersDataArray(filtersArray[0]);
+    const vehicleType: IFilterTypeData[] = this.createFiltersDataArray(filtersArray[1]);
 
-    return this.convertedFilters(poiCategory, vehicleModel, vehicleType);
+    return this.convertedFilters(vehicleModel, vehicleType);
   }
 
   private createFiltersDataArray(filtersData: Object): IFilterTypeData[] {
@@ -59,25 +55,23 @@ export class FilterModalService {
     return arrayData;
   }
 
-  private convertedFilters(poiCategory, vehicleModel, vehicleType): IFilter[] {
+  private convertedFilters(vehicleModel, vehicleType): IFilter[] {
     return [
       {
         id: 'vehicleType',
         name: 'Type',
         data: vehicleType,
         checked: false,
+        objectType: 'VEHICLE',
+        selectedFilter: '',
       },
       {
         id: 'vehicleModel', 
         name: 'Vehicle',
         data: vehicleModel,
         checked: false,
-      },
-      {
-        id: 'poiCategory',
-        name: 'POI',
-        data: poiCategory,
-        checked: false,
+        objectType: 'VEHICLE',
+        selectedFilter: '',
       }
     ]
   }

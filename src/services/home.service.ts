@@ -12,6 +12,4 @@ export class HomeService {
     return this.http.get<IVehicleResponse>(environment.apiUrl + 'map?objectType=VEHICLE');
     
   }
-
-  
 }

@@ -21,11 +21,11 @@
                       [(ngModel)]="filter.checked"></ion-checkbox>
       </ion-item>
       <ion-item>
-        <ion-select (ngModel)="option"
-                    name="select-{{i}}"
-                    >
+        <ion-select [ngModel]="selectedOption"
+                    name="select-{{i}}">
           <ion-option *ngFor="let option of filter.data"
                       [value]="option.id"
+                      [selected]="option.id === filter.selectedFilter"
                       (ionSelect)="onSelectedOption(filter, option)">{{option.name}}</ion-option>
         </ion-select>
       </ion-item>
@@ -42,8 +42,3 @@
               (click)="onMapFilter()">Filter map</button>
     </ion-toolbar>
 </ion-footer>
-
-<!-- checkbox (area, parking, vehicle, POI - to show); select and card (vehicles, POI - different marker for them) -->
-<!-- filter button on bottom -->
-<!-- sprawdzić czy reactive forms zadziała https://www.joshmorony.com/advanced-forms-validation-in-ionic-2/ -->
-<!-- https://www.joshmorony.com/advanced-forms-validation-in-ionic-2/ -->

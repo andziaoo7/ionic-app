@@ -15,6 +15,7 @@ export class HomePage {
   vehicles: IVehicle[];
   map: any;
   markers: any[] = [];
+  markerCluster: any;
   constructor(public navCtrl: NavController,
               private homeService: HomeService,
               private modal: ModalController) {
@@ -24,7 +25,7 @@ export class HomePage {
     this.homeService.getVehicles().subscribe((data: IVehicleResponse) => {
       this.vehicles = data.objects;
       this.showMap();
-      this.getMarkers(this.vehicles);
+      this.setMarkers(this.vehicles);
     });
   }
 
@@ -35,7 +36,9 @@ export class HomePage {
     // on closed modal update data, type any since any data isn't coming from API
     filterModal.onWillDismiss((filteredData: any[]) => {
       if(filteredData) {
-        this.getMarkers(filteredData);
+        this.markerCluster = null;
+        this.showMap();
+        this.reloadMarkers(filteredData);
       }
     })
   }
@@ -53,11 +56,10 @@ export class HomePage {
       mapTypeId: 'roadmap',
     }
 
-    
      this.map = new google.maps.Map(this.carMapRef.nativeElement, options);
   }
 
-  private getMarkers(vehicles: IVehicle[]) {
+  private setMarkers(vehicles: IVehicle[]) {
     const vehiclesLength: number = vehicles.length;
   
     for (let i = 0; i < vehiclesLength; i++) {
@@ -65,9 +67,9 @@ export class HomePage {
     }
 
     // creating clustering on map
-    const markerCluster: any = new MarkerClusterer(this.map, this.markers,
+    this.markerCluster = new MarkerClusterer(this.map, this.markers,
       {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-  }
+    }
 
   private addMarkersToMap(vehicle: IVehicle) {
     // TODO set different path for POI icon
@@ -90,6 +92,7 @@ export class HomePage {
 
     vehicleMarker.setMap(this.map);
     this.markers.push(vehicleMarker);
+
   }
 
   private setMarkerColor(vehicle: IVehicle): string {
@@ -102,5 +105,18 @@ export class HomePage {
     } else {
       return '#66BB6A';
     }
+  }
+
+  private reloadMarkers(data) {
+    // Loop through markers and set map to null for each
+    for (let i = 0; i < this.markers.length; i++) {
+        this.markers[i].setMap(null);
+    }
+
+    // Reset the markers array
+    this.markers = [];
+
+    // Call set markers to re-add markers
+    this.setMarkers(data);
   }
 }

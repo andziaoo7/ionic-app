@@ -12,10 +12,13 @@ export interface IFilter {
   name: string;
   data: IFilterTypeData[];
   checked: boolean;
+  objectType: string;
+  selectedFilter: string;
 }
 
 export interface ISelectedData {
   id: string;
   isChecked: boolean;
   property: string;
+  objectType: string;
 }
